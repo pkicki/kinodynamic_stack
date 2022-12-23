@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>kinodynamic_neural_planner</name>
+  <version>0.0.0</version>
+  <description>The kinodynamic_neural_planner package</description>
+
+  <maintainer email="piotr.kicki@put.poznan.pl">Piotr Kicki</maintainer>
+  <author email="piotr.kicki@put.poznan.pl">Piotr Kicki</author>
+
+  <license>MIT</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>air_hockey_msgs</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_export_depend>air_hockey_msgs</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <exec_depend>air_hockey_msgs</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+
+  <export>
+
+  </export>
+</package>

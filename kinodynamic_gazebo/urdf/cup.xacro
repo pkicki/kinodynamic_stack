@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:property name="collide_bitmask" value="0x02"/>
+
+    <xacro:macro name="cup" params="robot_name">
+        <joint name="${robot_name}_joint_cup" type="fixed">
+            <parent link="${robot_name}_link_ee"/>
+            <child link="${robot_name}_link_cup"/>
+            <origin xyz="0.0 0.0 0.1" rpy="-1.57 0 0"/>
+        </joint>
+
+        <link name="${robot_name}_link_cup">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="12."/>
+                <inertia ixx="0.13" ixy="0.0" ixz="0.0"
+                         iyy="0.13" iyz="0.0" izz="0.08"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0.0 0"/>
+                <geometry>
+                  <box size="0.2 0.2 0.3"/>
+                </geometry>
+                <material name="Blue"/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                      <box size="0.2 0.2 0.3"/>
+                </geometry>
+            </collision>
+        </link>
+
+
+        <gazebo reference="${robot_name}_link_cup">
+            <collision>
+                <surface>
+                    <bounce>
+                        <restitution_coefficient>1.0</restitution_coefficient>
+                        <threshold>0.0</threshold>
+                    </bounce>
+                    <contact>
+                        <collide_bitmask>${collide_bitmask}</collide_bitmask>
+                        <ode>
+                            <kp>1e9</kp>
+                            <max_vel>10</max_vel>
+                        </ode>
+                    </contact>
+                </surface>
+            </collision>
+            <material>Gazebo/Grey</material>
+            <mu1>1.0</mu1>
+            <mu2>1.0</mu2>
+            <selfCollide>0</selfCollide>
+        </gazebo>
+    </xacro:macro>
+
+</robot> 

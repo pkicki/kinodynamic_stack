@@ -1,0 +1,3 @@
+[submodule "kinodynamic_neural_planner/scripts/manifold_planning"]
+	path = kinodynamic_neural_planner/scripts/manifold_planning
+	url = https://github.com/pkicki/manifold_planning.git

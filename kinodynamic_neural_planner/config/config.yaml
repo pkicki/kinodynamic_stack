@@ -1,21 +1,2 @@
 neural_planner:
-  #planner_path: "./trained_models/kino/N15/last_n-55"
-  #planner_path: "./trained_models/kino/N15/best-247"
-  #planner_path: "./trained_models/kino/N10/last_n-47"
-  #planner_path: "./trained_models/kino/N20/last_n-61"
-  #planner_path: "./trained_models/kino/l1024/last_n-51"
-  #planner_path: "./trained_models/kino/l512/last_n-51"
-  #planner_path: "./trained_models/kino/l256/last_n-54"
-  #planner_path: "./trained_models/kino/l128/last_n-66"
-  #planner_path: "./trained_models/kino/l64/last_n-60"
-  # long run
-  #planner_path: "./trained_models/kino/l64/last_n-132"
-  #planner_path: "./trained_models/kino/l128/best-220"
-  #planner_path: "./trained_models/kino/l256/best-160"
-  #planner_path: "./trained_models/kino/l512/last_n-126"
-  #planner_path: "./trained_models/kino/l1024/last_n-191"
   planner_path: "./trained_models/kino/l2048/last_n-150"
-  #planner_path: "./trained_models/kino/l3072/best-233"
-  # smooth
-  #planner_path: "./trained_models/kino/l2048s/last_n-43" # test if smoothed is nice
-  #planner_path: "./trained_models/kino/l2048s/best-150"

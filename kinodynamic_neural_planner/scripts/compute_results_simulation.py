@@ -14,11 +14,11 @@ package_dir = os.path.dirname(root_dir)
 #planners_names_map = dict(ours="ours", sst="SST", mpcmpnet="MPC-MPNet", nlopt="TrajOpt", cbirrt="CBiRRT",
 #                          ours_n10="ours_n10", ours_n20="ours_n20", ours_l512="ours_l512")
 order = [
-    ("ours_l2048_long", "ours"),
-    ("cbirrt", "CBiRRT"),
-    ("nlopt", "TrajOpt"),
-    ("mpcmpnet", "MPC-MPNet"),
-    ("sst", "SST"),
+    ("ours_l2048_long", "CNP-B (ours)"),
+    ("cbirrt", "CBiRRT [11]"),
+    ("nlopt", "TrajOpt [25]"),
+    ("mpcmpnet", "MPC-MPNet [54]"),
+    ("sst", "SST [41]"),
 ]
 planners_names_map = {x: y for x, y in order}
 planners_names_order = {x: i for i, (x, y) in enumerate(order)}
@@ -41,7 +41,8 @@ def mean(r, k, filter_finished):
     return np.mean(s)
 
 def bar_chart(data, categories):
-    plt.rc('font', size=13)
+    plt.rc('font', size=15)
+    plt.rc('legend', fontsize=17)
     n_cat = len(list(categories.keys()))
     planners = list(data[list(categories.keys())[0]].keys())
     #planners.sort(key=lambda x: planners_names_map[x])

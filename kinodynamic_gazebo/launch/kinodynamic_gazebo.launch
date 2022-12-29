@@ -56,6 +56,6 @@
 
     <!-- Start Air Hockey rqt -->
 <!--     <node pkg="rqt_gui" type="rqt_gui" name="kinodynamic_dashboard" /> -->
-    <node pkg="rviz" type="rviz" name="kinodynamic_dashboard" args="-d $(find kinodynamic_gazebo)/config/kinodynamic.rviz" />
+<!--     <node pkg="rviz" type="rviz" name="kinodynamic_dashboard" args="-d $(find kinodynamic_gazebo)/config/kinodynamic.rviz" /> -->
 
 </launch>

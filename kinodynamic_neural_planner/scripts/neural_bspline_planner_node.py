@@ -28,7 +28,6 @@ from planner_request_utils import unpack_planner_request
 from manifold_planning.utils.bspline import BSpline
 from manifold_planning.utils.constants import UrdfModels, Limits, Base
 from manifold_planning.utils.model import model_inference, load_model_kino
-from manifold_planning.utils.model import compute_trajectory
 
 
 class NeuralPlannerNode:
@@ -67,14 +66,7 @@ class NeuralPlannerNode:
         d = d.astype(np.float32)
         t0 = perf_counter()
         q, dq, ddq, t, q_cps, t_cps = model_inference(self.planner_model, d, self.bsp, self.bspt)
-        #q_cps_, t_cps_ = self.planner_model(d)
-        #q_cps = q_cps_.numpy()[0]
-        #t_cps = t_cps_.numpy()[0]
-        #q_cps_, t_cps_ = self.planner_model.inference(d)
-        #q_cps = q_cps_[0]
-        #t_cps = t_cps_[0]
         t1 = perf_counter()
-        #q, dq, ddq, t = compute_trajectory(q_cps_, t_cps_, self.bsp, self.bspt)
         self.publish_joint_trajectory(q_cps, t_cps)
         print("PLANNING TIME: ", t1 - t0)
         #self.publish_cartesian_trajectory(q, t)

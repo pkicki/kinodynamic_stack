@@ -27,7 +27,7 @@ from iiwas_control.msg import BsplineTrajectoryMsg, BsplineSegmentMsg
 from planner_request_utils import unpack_planner_request
 from manifold_planning.utils.bspline import BSpline
 from manifold_planning.utils.constants import UrdfModels, Limits, Base
-from manifold_planning.utils.model import model_inference, load_model_kino
+from manifold_planning.utils.model import model_inference, model_fast_inference, load_model_kino
 
 
 class NeuralPlannerNode:
@@ -65,7 +65,7 @@ class NeuralPlannerNode:
         d = np.concatenate([q_0, q_d, np.zeros(6)], axis=-1)[np.newaxis]
         d = d.astype(np.float32)
         t0 = perf_counter()
-        q, dq, ddq, t, q_cps, t_cps = model_inference(self.planner_model, d, self.bsp, self.bspt)
+        q, dq, ddq, t, q_cps, t_cps = model_fast_inference(self.planner_model, d, self.bsp, self.bspt)
         t1 = perf_counter()
         self.publish_joint_trajectory(q_cps, t_cps)
         print("PLANNING TIME: ", t1 - t0)

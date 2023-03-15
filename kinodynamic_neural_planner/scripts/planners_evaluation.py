@@ -88,6 +88,7 @@ class PlannersEvaluationNode:
 
     def record_rosbag(self, i):
         name = f"data/kino_exp/{self.method}/{i:03d}.bag"
+        os.makedirs(os.path.dirname(name), exist_ok=True)
         command = "rosbag record " \
                   f"-O {name} " \
                   "/joint_states /tf " \

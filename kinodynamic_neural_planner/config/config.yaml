@@ -1,2 +1,2 @@
 neural_planner:
-  planner_path: "./scripts/manifold_planning/trained_models/kino/last_n-150"
+  planner_path: "./trained_models/kino/l2048/last_n-150"

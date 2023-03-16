@@ -105,7 +105,7 @@ class PlannersEvaluationNode:
             self.delete_boxes()
             self.move_to(q0[i])
             self.create_boxes(xyz0[i, -1] - Cup.height, xyzk[i, -1] - Cup.height)
-            # self.record_rosbag(i)
+            self.record_rosbag(i)
             self.request_plan(qk[i])
             self.is_moving = True
             k = 0

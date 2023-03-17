@@ -19,7 +19,7 @@ from scipy.spatial.transform import Rotation as Rot
 from manifold_planning.utils.manipulator import Iiwa
 from manifold_planning.utils.feasibility import check_if_plan_valid, compute_cartesian_losses
 
-from kinodynamic_neural_planner.scripts.manifold_planning.utils.constants import Table1, Table2, Cup, Limits
+from manifold_planning.utils.constants import Table1, Table2, Cup, Limits
 
 root_dir = os.path.dirname(__file__)
 package_dir = os.path.dirname(root_dir)
@@ -125,7 +125,7 @@ def compute_vertical_constraints(q):
 
 
 def if_valid_box_constraints(q, zh1, zh2):
-    allowed_violation = 0.01
+    allowed_violation = 0.02
     xyz, R = forwardKinematics(q)
 
     def dist2box(xyz, xl, yl, zl, xh, yh, zh):
@@ -239,20 +239,37 @@ def compute_metrics(bag_path):
     vertical_constraints = np.all(vertical_loss < 0.05)
     alpha_beta = np.sum(np.abs(angles[:, :2]), axis=-1)
 
-    #torque_limits = 1.0 * np.array([320, 320, 176, 176, 110, 40, 40], dtype=np.float32)[np.newaxis]
-    #q_dot_limits = 1.0 * np.array([1.4835, 1.4835, 1.7453, 1.3090, 2.2689, 2.3562, 2.3562], dtype=np.float32)[np.newaxis]
-    #q_ddot_limits = 10. * q_dot_limits
-    #torque_constraints = np.all(np.abs(torque) < torque_limits)
-    #dq_constraints = np.all(np.abs(dq) < q_dot_limits)
-    #ddq_constraints = np.all(np.abs(ddq) < q_ddot_limits)
+    torque_limits = 1.0 * np.array([320, 320, 176, 176, 110, 40, 40], dtype=np.float32)[np.newaxis]
+    q_dot_limits = 1.0 * np.array([1.4835, 1.4835, 1.7453, 1.3090, 2.2689, 2.3562, 2.3562], dtype=np.float32)[np.newaxis]
+    q_ddot_limits = 10. * q_dot_limits
+    torque_constraints = np.all(np.abs(torque) < torque_limits)
+    dq_constraints = np.all(np.abs(dq) < q_dot_limits)
+    ddq_constraints = np.all(np.abs(ddq) < q_ddot_limits)
+    #for i in range(7):
+    #    plt.subplot(331 + i)
+    #    plt.plot(np.abs(dq[:, i]))
+    #    plt.plot([0, dq.shape[0]], [q_dot_limits[0, i], q_dot_limits[0, i]])
+    #plt.show()
+    #for i in range(7):
+    #    plt.subplot(331 + i)
+    #    plt.plot(np.abs(ddq[:, i]))
+    #    plt.plot([0, ddq.shape[0]], [q_ddot_limits[0, i], q_ddot_limits[0, i]])
+    #plt.show()
+    #for i in range(7):
+    #    plt.subplot(331 + i)
+    #    plt.plot(np.abs(torque[:, i]))
+    #    plt.plot([0, torque.shape[0]], [torque_limits[0, i], torque_limits[0, i]])
+    #plt.show()
+
     #dist_2_goal = np.linalg.norm(data_i[7:14] - q[-1])
     #finished = dist_2_goal < 0.2
     xyz_final, _ = forwardKinematics([q[-1]])
     xyz_desired, _ = forwardKinematics([data_i[7:14]])
     dist_2_goal = np.linalg.norm(xyz_final[0] - xyz_desired[0])
     finished = dist_2_goal < 0.2
-    #valid_ = box_constraints and vertical_constraints and torque_constraints and dq_constraints and ddq_constraints and finished
-    valid = box_constraints and vertical_constraints and finished
+    #valid = box_constraints and vertical_constraints and torque_constraints and dq_constraints and ddq_constraints and finished
+    valid = box_constraints and vertical_constraints and torque_constraints and dq_constraints and finished
+    #valid = box_constraints and vertical_constraints and finished
 
     ee, _ = forwardKinematics(q)
     ee_d, _ = forwardKinematics(qd)
@@ -314,7 +331,11 @@ def compute_metrics(bag_path):
 #planners = ["ours_l512_long"]
 #planners = ["ours_l64_long"]
 #planners = ["ours_l2048s"]
-planners = ["ours_l2048sl"]
+#planners = ["ours_10kg"]
+#planners = ["ours_12kg"]
+planners = ["ours_13kg"]
+#planners = ["ours_16kg"]
+#planners = ["ours_18kg"]
 #planners = ["ours_l2048_long"]
 package_dir = "/home/piotr/b8/ah_ws/data"
 for planner in planners:
@@ -322,14 +343,14 @@ for planner in planners:
     dir_path = os.path.join(package_dir, "kino_exp", planner)
     sp = dir_path.replace("data", "results")
     os.makedirs(sp, exist_ok=True)
-    #for i, p in enumerate(glob(os.path.join(dir_path, "*.bag"))):
-    #for i, p in enumerate([os.path.join(dir_path, f"{str(x).zfill(3)}.bag") for x in [16, 22, 23, 24, 42, 44, 65, 72, 93]]):
+    for i, p in enumerate(glob(os.path.join(dir_path, "*.bag"))):
+    #for i, p in enumerate([os.path.join(dir_path, f"{str(x).zfill(3)}.bag") for x in [16, 23, 24, 42, 44, 67, 72]]):
     #for i, p in enumerate([os.path.join(dir_path, f"{str(x).zfill(3)}.bag") for x in [1, 12, 16, 24, 39, 42, 44, 65, 74, 91]]):
     #for i, p in enumerate([os.path.join(dir_path, f"{str(x).zfill(3)}.bag") for x in [0, 58]]):
     #for i, p in enumerate([os.path.join(dir_path, f"{str(x).zfill(3)}.bag") for x in [24, 44, 53, 80, 93, 94]]):
     #for i, p in enumerate(glob(os.path.join(dir_path, "00*.bag"))):
     #for i, p in enumerate(glob(os.path.join(dir_path, "*42.bag"))):
-    for i, p in enumerate([os.path.join(dir_path, f"{str(x).zfill(3)}.bag") for x in [0, 6, 16, 21, 23, 24, 42, 44, 65, 66, 67, 72, 92]]):
+    #for i, p in enumerate([os.path.join(dir_path, f"{str(x).zfill(3)}.bag") for x in [0, 6, 16, 21, 23, 24, 42, 44, 65, 66, 67, 72, 92]]):
         print(i)
         d = compute_metrics(p)
         save_path = p[:-3] + "res"

@@ -10,12 +10,41 @@
         </joint>
 
         <link name="${robot_name}_link_cup">
-            <inertial>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <mass value="12."/>
-                <inertia ixx="0.13" ixy="0.0" ixz="0.0"
-                         iyy="0.13" iyz="0.0" izz="0.08"/>
-            </inertial>
+        <!-- 12kg -->
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="12."/>
+            <inertia ixx="0.13" ixy="0.0" ixz="0.0"
+                     iyy="0.13" iyz="0.0" izz="0.08"/>
+        </inertial>
+        <!-- 13kg -->
+        <!--<inertial>-->
+        <!--    <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--    <mass value="13."/>-->
+        <!--    <inertia ixx="0.1408" ixy="0.0" ixz="0.0"-->
+        <!--             iyy="0.1408" iyz="0.0" izz="0.087"/>-->
+        <!--</inertial>-->
+        <!-- 16kg -->
+        <!--<inertial>-->
+        <!--    <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--    <mass value="16."/>-->
+        <!--    <inertia ixx="0.1733" ixy="0.0" ixz="0.0"-->
+        <!--             iyy="0.1733" iyz="0.0" izz="0.1067"/>-->
+        <!--</inertial>-->
+        <!-- 18kg -->
+        <!--<inertial>-->
+        <!--    <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--    <mass value="18."/>-->
+        <!--    <inertia ixx="0.195" ixy="0.0" ixz="0.0"-->
+        <!--             iyy="0.195" iyz="0.0" izz="0.12"/>-->
+        <!--</inertial>-->
+        <!-- 10kg -->
+        <!--<inertial>-->
+        <!--    <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--    <mass value="10."/>-->
+        <!--    <inertia ixx="0.1083" ixy="0.0" ixz="0.0"-->
+        <!--             iyy="0.1083" iyz="0.0" izz="0.067"/>-->
+        <!--</inertial>-->
             <visual>
                 <origin xyz="0 0 0" rpy="0 0.0 0"/>
                 <geometry>
